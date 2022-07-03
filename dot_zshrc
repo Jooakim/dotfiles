@@ -1,0 +1,72 @@
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+#source "$HOME/.vim/plugged/gruvbox/gruvbox_256palette.sh"
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="theunraveler"
+
+
+export FZF_BASE=~/.vim/bundle/fzf/
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+  vi-mode
+  fzf
+  docker
+  docker-compose
+  autoswitch_virtualenv
+)
+
+source $ZSH/oh-my-zsh.sh
+
+export EDITOR='vim'
+
+
+# Make normal mode standard on new line
+accept-line() { prev_mode=$KEYMAP; zle .accept-line }
+zle-line-init() { zle -K ${prev_mode:-viins} }
+zle -N accept-line
+zle -N zle-line-init
+
+# Python debugger
+alias pudb='python3 -m pudb'
+export TF_CPP_MIN_LOG_LEVEL=2
+#export PATH=$PATH:/home/joakim/Downloads/geckodriver
+export PATH=$PATH:/home/joakim/.local/bin
+
+alias scrot='scrot ~/Pictures/Screenshots/%b%d::%H%M%S.png'
+alias notes='cd ~/Documents/notes'
+alias mux='tmuxinator'
+
+# Fix the issue of small stty window
+alias docker-exec='docker exec -e COLUMNS="`tput cols`" -e LINES="`tput lines`" -ti'
+
+export FZF_DEFAULT_COMMAND='rg --files '
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Disable freezing terminal with Ctrl-S
+stty -ixon
+
+
+if [ "`hostname`" = dsa206871 ]; then
+    source ~/dev/dotfiles/work/sealrc
+    source ~/.bin/tmuxinator.zsh
+fi
+
+export BUGJAIL='-javaagent:/opt/BugJail/agent.jar'
+# Higher keyboard repeat rate
+#xset r rate 230 60
+alias vim=nvim
+
+alias copy='xclip -sel clip'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/zsh_completion" ] && \. "$NVM_DIR/zsh_completion"  # This loads nvm bash_completion
+
+export PATH="/usr/local/bin:$PATH"
