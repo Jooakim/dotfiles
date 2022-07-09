@@ -6,6 +6,11 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="theunraveler"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ebdbb2,bg=282828,bold,underline"
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# Fix dircolors highlights
+test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 
 
 export FZF_BASE=~/.vim/bundle/fzf/
@@ -19,6 +24,7 @@ plugins=(
   fzf
   docker
   docker-compose
+  zsh-autosuggestions
   autoswitch_virtualenv
 )
 
